@@ -1,1 +1,0 @@
-npm test src/test/promise.test.js

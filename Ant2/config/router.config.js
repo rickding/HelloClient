@@ -17,6 +17,19 @@ export default [
     Routes: ['src/pages/Authorized'],
     authority: ['admin', 'user'],
     routes: [
+      // setting
+      {
+        path: '/setting',
+        icon: 'table',
+        name: 'setting',
+        routes: [
+          {
+            path: '/setting/server',
+            name: 'Server',
+            component: './Setting/Server',
+          },
+        ],
+      },
       // dashboard
       { path: '/', redirect: '/dashboard/analysis' },
       {
