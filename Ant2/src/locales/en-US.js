@@ -1,5 +1,7 @@
 export default {
   'navbar.lang': '中文',
+  'menu.setting': 'Setting',
+  'menu.setting.server': 'Server',
   'menu.home': 'Home',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': 'Analysis',

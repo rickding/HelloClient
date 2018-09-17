@@ -25,7 +25,7 @@ export default [
         routes: [
           {
             path: '/setting/server',
-            name: 'Server',
+            name: 'server',
             component: './Setting/Server',
           },
         ],
