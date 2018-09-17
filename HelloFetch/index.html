@@ -22,7 +22,16 @@
   <script>
     var myList = document.querySelector('ul');
 
-    fetch('https://api.github.com/users/chriscoyier/repos')
+    let content = {some: 'content'};
+    fetch('http://localhost:8011/chk', {
+      method: 'post',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(content)
+    })
+    // fetch('https://api.github.com/users/chriscoyier/repos')
     .then(response => {
       console.log(response);
       return response.json();
