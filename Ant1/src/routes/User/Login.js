@@ -4,6 +4,7 @@ import { Link } from 'dva/router';
 import { Checkbox, Alert, Icon } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
+import { isAutoLogin, setAutoLogin, getLoginTab, setLoginTab } from '../../utils/settings';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -13,11 +14,12 @@ const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 }))
 export default class LoginPage extends Component {
   state = {
-    type: 'account',
-    autoLogin: true,
+    type: getLoginTab() || 'account',
+    autoLogin: isAutoLogin(),
   };
 
   onTabChange = type => {
+    setLoginTab(type);
     this.setState({ type });
   };
 
@@ -36,9 +38,9 @@ export default class LoginPage extends Component {
   };
 
   changeAutoLogin = e => {
-    this.setState({
-      autoLogin: e.target.checked,
-    });
+    const autoLogin = e.target.checked;
+    setAutoLogin(autoLogin);
+    this.setState({ autoLogin });
   };
 
   renderMessage = content => {

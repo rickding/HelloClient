@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import pathToRegexp from 'path-to-regexp';
 import { Link } from 'dva/router';
-import classNames from 'classnames';
 import styles from './index.less';
 import { urlToList } from '../_utils/pathTools';
 
@@ -76,7 +75,8 @@ export default class SiderMenu extends PureComponent {
   getDefaultCollapsedSubMenus(props) {
     const {
       location: { pathname },
-    } = props || this.props;
+    } =
+      props || this.props;
     return getMenuMatchKeys(this.flatMenuKeys, urlToList(pathname));
   }
 
@@ -212,10 +212,6 @@ export default class SiderMenu extends PureComponent {
   render() {
     const { logo, menuData, collapsed, onCollapse } = this.props;
     const { openKeys } = this.state;
-    const theme = 'dark';
-    const siderClass = classNames(styles.sider, {
-      [styles.light]: theme === 'light',
-    });
     // Don't show popup menu when it is been collapsed
     const menuProps = collapsed
       ? {}
@@ -235,7 +231,7 @@ export default class SiderMenu extends PureComponent {
         breakpoint="lg"
         onCollapse={onCollapse}
         width={256}
-        className={siderClass}
+        className={styles.sider}
       >
         <div className={styles.logo} key="logo">
           <Link to="/">
@@ -245,7 +241,7 @@ export default class SiderMenu extends PureComponent {
         </div>
         <Menu
           key="Menu"
-          theme={theme}
+          theme="dark"
           mode="inline"
           {...menuProps}
           onOpenChange={this.handleOpenChange}

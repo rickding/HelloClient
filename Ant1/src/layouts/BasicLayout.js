@@ -15,7 +15,7 @@ import NotFound from '../routes/Exception/404';
 import { getRoutes } from '../utils/utils';
 import Authorized from '../utils/Authorized';
 import { getMenuData } from '../common/menu';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 
 const { Content, Header, Footer } = Layout;
 const { AuthorizedRoute, check } = Authorized;
@@ -131,17 +131,16 @@ export default class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = '数字王国空间云服务';
     let currRouterData = null;
     // match params path
-    for (const key in routerData) {
+    Object.keys(routerData).forEach(key => {
       if (pathToRegexp(key).test(pathname)) {
         currRouterData = routerData[key];
-        break;
       }
-    }
+    });
     if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Design Pro`;
+      title = `${currRouterData.name} - 数字王国空间云服务`;
     }
     return title;
   }
@@ -217,7 +216,6 @@ export default class BasicLayout extends React.PureComponent {
       location,
     } = this.props;
     const { isMobile: mb } = this.state;
-    const baseRedirect = this.getBaseRedirect();
     const layout = (
       <Layout>
         <SiderMenu
@@ -262,7 +260,7 @@ export default class BasicLayout extends React.PureComponent {
                   redirectPath="/exception/403"
                 />
               ))}
-              <Redirect exact from="/" to={baseRedirect} />
+              <Redirect exact from="/" to="/setting/facet" />
               <Route render={NotFound} />
             </Switch>
           </Content>
@@ -270,27 +268,21 @@ export default class BasicLayout extends React.PureComponent {
             <GlobalFooter
               links={[
                 {
-                  key: 'Pro 首页',
-                  title: 'Pro 首页',
-                  href: 'http://pro.ant.design',
+                  key: 'dds',
+                  title: '数字王国空间',
+                  href: 'http://www.ddspace.com.cn',
                   blankTarget: true,
                 },
                 {
-                  key: 'github',
-                  title: <Icon type="github" />,
-                  href: 'https://github.com/ant-design/ant-design-pro',
-                  blankTarget: true,
-                },
-                {
-                  key: 'Ant Design',
-                  title: 'Ant Design',
-                  href: 'http://ant.design',
+                  key: 'service',
+                  title: '云服务',
+                  href: 'http://api.ddservice.com.cn',
                   blankTarget: true,
                 },
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright" /> 2018 蚂蚁金服体验技术部出品
+                  Copyright <Icon type="copyright" /> 2018 数字王国空间
                 </Fragment>
               }
             />

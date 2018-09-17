@@ -2,9 +2,42 @@ import { isUrl } from '../utils/utils';
 
 const menuData = [
   {
+    name: 'Setting',
+    icon: 'setting',
+    path: 'setting',
+    children: [
+      {
+        name: '服务器',
+        icon: 'question-circle-o',
+        path: 'server',
+      },
+      {
+        name: '认证授权',
+        icon: 'profile',
+        path: 'auth',
+      },
+      {
+        name: '用户管理',
+        icon: 'team',
+        path: 'user',
+      },
+      {
+        name: '存储服务',
+        icon: 'database',
+        path: 'file',
+      },
+      {
+        name: '面部融合',
+        icon: 'user',
+        path: 'facet',
+      },
+    ],
+  },
+  {
     name: 'dashboard',
     icon: 'dashboard',
     path: 'dashboard',
+    hideInMenu: true,
     children: [
       {
         name: '分析页',
@@ -99,6 +132,7 @@ const menuData = [
     name: '结果页',
     icon: 'check-circle-o',
     path: 'result',
+    hideInMenu: true,
     children: [
       {
         name: '成功',
@@ -114,6 +148,7 @@ const menuData = [
     name: '异常页',
     icon: 'warning',
     path: 'exception',
+    hideInMenu: true,
     children: [
       {
         name: '403',
@@ -138,6 +173,7 @@ const menuData = [
     name: '账户',
     icon: 'user',
     path: 'user',
+    hideInMenu: true,
     authority: 'guest',
     children: [
       {

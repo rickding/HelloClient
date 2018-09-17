@@ -6,13 +6,6 @@ import { getMenuData } from './menu';
 
 let routerDataCache;
 
-const getRouterDataCache = app => {
-  if (!routerDataCache) {
-    routerDataCache = getRouterData(app);
-  }
-  return routerDataCache;
-};
-
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line
   !app._models.some(({ namespace }) => {
@@ -33,21 +26,27 @@ const dynamicWrapper = (app, models, component) => {
   // transformed by babel-plugin-dynamic-import-node-sync
   if (component.toString().indexOf('.then(') < 0) {
     return props => {
+      if (!routerDataCache) {
+        routerDataCache = getRouterData(app);
+      }
       return createElement(component().default, {
         ...props,
-        routerData: getRouterDataCache(app),
+        routerData: routerDataCache,
       });
     };
   }
   // () => import('module')
   return Loadable({
     loader: () => {
+      if (!routerDataCache) {
+        routerDataCache = getRouterData(app);
+      }
       return component().then(raw => {
         const Component = raw.default || raw;
         return props =>
           createElement(Component, {
             ...props,
-            routerData: getRouterDataCache(app),
+            routerData: routerDataCache,
           });
       });
     },
@@ -70,27 +69,28 @@ function getFlatMenuData(menus) {
   return keys;
 }
 
-function findMenuKey(menuData, path) {
-  const menuKey = Object.keys(menuData).find(key => pathToRegexp(path).test(key));
-  if (menuKey == null) {
-    if (path === '/') {
-      return null;
-    }
-    const lastIdx = path.lastIndexOf('/');
-    if (lastIdx < 0) {
-      return null;
-    }
-    if (lastIdx === 0) {
-      return findMenuKey(menuData, '/');
-    }
-    // 如果没有，使用上一层的配置
-    return findMenuKey(menuData, path.substr(0, lastIdx));
-  }
-  return menuKey;
-}
-
 export const getRouterData = app => {
   const routerConfig = {
+    // Setting
+    '/setting': {
+      component: dynamicWrapper(app, [], () => import('../routes/Setting/TabList')),
+    },
+    '/setting/server': {
+      component: dynamicWrapper(app, ['rule'], () => import('../routes/Setting/Server')),
+    },
+    '/setting/auth': {
+      component: dynamicWrapper(app, ['rule'], () => import('../routes/Setting/Auth')),
+    },
+    '/setting/user': {
+      component: dynamicWrapper(app, ['rule'], () => import('../routes/Setting/User')),
+    },
+    '/setting/file': {
+      component: dynamicWrapper(app, ['rule'], () => import('../routes/Setting/File')),
+    },
+    '/setting/facet': {
+      component: dynamicWrapper(app, ['rule'], () => import('../routes/Setting/Facet')),
+    },
+
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
@@ -204,11 +204,8 @@ export const getRouterData = app => {
   Object.keys(routerConfig).forEach(path => {
     // Regular match item name
     // eg.  router /user/:id === /user/chen
-    let menuKey = Object.keys(menuData).find(key => pathToRegexp(path).test(`${key}`));
-    const inherited = menuKey == null;
-    if (menuKey == null) {
-      menuKey = findMenuKey(menuData, path);
-    }
+    const pathRegexp = pathToRegexp(path);
+    const menuKey = Object.keys(menuData).find(key => pathRegexp.test(`${key}`));
     let menuItem = {};
     // If menuKey is not empty
     if (menuKey) {
@@ -223,7 +220,6 @@ export const getRouterData = app => {
       name: router.name || menuItem.name,
       authority: router.authority || menuItem.authority,
       hideInBreadcrumb: router.hideInBreadcrumb || menuItem.hideInBreadcrumb,
-      inherited,
     };
     routerData[path] = router;
   });

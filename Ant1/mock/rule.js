@@ -2,10 +2,10 @@ import { parse } from 'url';
 
 // mock tableListDataSource
 let tableListDataSource = [];
-for (let i = 0; i < 46; i += 1) {
+for (let i = 0; i < 6; i += 1) {
   tableListDataSource.push({
     key: i,
-    disabled: i % 6 === 0,
+    disabled: i % 3 === 0,
     href: 'https://ant.design',
     avatar: [
       'https://gw.alipayobjects.com/zos/rmsportal/eeHMaZBwmTvLdIwMfBpg.png',
@@ -16,10 +16,37 @@ for (let i = 0; i < 46; i += 1) {
     owner: '曲丽丽',
     description: '这是一段描述',
     callNo: Math.floor(Math.random() * 1000),
-    status: Math.floor(Math.random() * 10) % 4,
+    status: i % 4, // Math.floor(Math.random() * 10) % 4,
     updatedAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
     createdAt: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
     progress: Math.ceil(Math.random() * 100),
+
+    code: `F18${Math.floor(Math.random() * 100000000000)}`,
+    appName: `客KEY${(Math.floor(Math.random() * 10) % 2) + 1}`,
+    statusStr: i % 4 === 3 ? 'finished' : 'waiting',
+    isFailed: i % 2 === 0,
+    isCallback: i % 2 === 0,
+    processCount: (Math.floor(Math.random() * 10) % 4) + 1,
+    updated: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
+    urlFacial: i % 2 === 0 ? 'ssss' : null,
+    urlModel: i % 2 === 0 ? 'aaa' : '',
+
+    name: `user_obj_${i + 1}.zip`,
+    appKey: `F18${Math.floor(Math.random() * 100000000000)}`,
+    isEnabled: i % 2 === 0,
+
+    tableName: i % 3 === 2 ? 'voucher' : i % 3 === 1 ? 'user' : 'auth',
+    userName: `管理员${(i % 3) + 1}`,
+    opStr: i % 2 === 1 ? 'insert' : 'update',
+    ip: `${Math.floor(Math.random() * 255) % 255}.22.32.${Math.floor(Math.random() * 255) % 255}`,
+    summary: `增加修改${(i % 2) + 1}`,
+    created: new Date(`2017-07-${Math.floor(i / 2) + 1}`),
+
+    fileType: Math.floor(Math.random() * 10) % 2 === 0 ? 'user' : 'processed',
+    fileLocation: Math.floor(Math.random() * 10) % 1 === 0 ? 'ddservice' : 'aliyun',
+    downloadCount: Math.floor(Math.random() * 10) % 6,
+    md5: `${Math.floor(Math.random() * 1000000000000000)}`,
+    url: 'download',
   });
 }
 
@@ -64,11 +91,12 @@ export function getRule(req, res, u) {
   }
 
   const result = {
+    aaa: params,
     list: dataSource,
     pagination: {
       total: dataSource.length,
       pageSize,
-      current: parseInt(params.currentPage, 10) || 1,
+      current: parseInt(params.pageNum, 10) || 1,
     },
   };
 
