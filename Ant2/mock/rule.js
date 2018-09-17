@@ -2,7 +2,7 @@ import { parse } from 'url';
 
 // mock tableListDataSource
 let tableListDataSource = [];
-for (let i = 0; i < 46; i += 1) {
+for (let i = 0; i < 5; i += 1) {
   tableListDataSource.push({
     key: i,
     disabled: i % 6 === 0,
