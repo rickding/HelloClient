@@ -1,5 +1,5 @@
 import request from '@/utils/request';
-import { getApiUrl } from '@/utils/setting';
+import { getApiUrl, getAccessToken, getUserToken } from '@/utils/setting';
 
 export async function getApi(url) {
   return callApi(url, 'GET', null);
@@ -20,11 +20,11 @@ export async function callApi(url, method, params) {
 
   if (url !== 'chk' && url !== 'token') {
     options.headers = {
-      access_token: (params || {}).accessToken || 'kqZ5LdQ+c8UI9kcCu67vQQ=='
+      access_token: getAccessToken() || 'kqZ5LdQ+c8UI9kcCu67vQQ=='
     }
 
     if (url !== 'login') {
-      options.headers.user_token = (params || {}).userToken || 'xmESjXci0yQ4+XSTzECtSA==';
+      options.headers.user_token = getUserToken() || 'xmESjXci0yQ4+XSTzECtSA==';
     }
   }
 
