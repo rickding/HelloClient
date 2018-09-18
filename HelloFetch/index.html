@@ -19,32 +19,46 @@
     </ul>
 
   </body>
+  <script src="https://cdn.jsdelivr.net/npm/zl-fetch@2.1.5"></script>
   <script>
-    var myList = document.querySelector('ul');
+    function apiRet(data, url) {
+      var listItem = document.createElement('li');
+      listItem.innerHTML = JSON.stringify(data);
+      listItem.innerHTML +=', url: <strong>' + url + '</strong>';
+
+      var myList = document.querySelector('ul');
+      myList.appendChild(listItem);
+    }
+    
+    // fetch('https://api.github.com/users/chriscoyier/repos')
+    fetch('http://localhost:8011/')
+    .then(response => { return response.json(); })
+    .then(data => {
+      console.log('fetch: ' + JSON.stringify(data));
+      apiRet(data, '/')
+    });
+
+    // https://github.com/zellwk/zl-fetch
+    zlFetch('http://localhost:8011/chk')
+    .then(resp => {
+      console.log('zlFetch: ' + JSON.stringify(resp));
+      apiRet(resp.body, 'chk')
+    })
+    .catch(e => console.log(e));
 
     let content = {some: 'content'};
     fetch('http://localhost:8011/chk', {
-      method: 'post',
+      method: 'GET',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(content)
+      // body: JSON.stringify(content)
     })
-    // fetch('https://api.github.com/users/chriscoyier/repos')
-    .then(response => {
-      console.log(response);
-      return response.json();
-    })
+    .then(response => { return response.json(); })
     .then(data => {
-      console.log(data);
-      for(var i = 0; i < data.length; i++) {
-        var listItem = document.createElement('li');
-        listItem.innerHTML = '<strong>' + data[i].name + '</strong>';
-        listItem.innerHTML +=' size: ' + data[i].size;
-        listItem.innerHTML +=' Watchers: <strong>' + data[i].watchers + '</strong>';
-        myList.appendChild(listItem);
-      }
+      console.log('fetch: ' + JSON.stringify(data));
+      apiRet(data, 'chk')
     });
 
   </script>
