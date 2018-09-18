@@ -29,6 +29,32 @@
       var myList = document.querySelector('ul');
       myList.appendChild(listItem);
     }
+
+    // global
+    accessToken = undefined;
+    userToken = undefined;
+
+    function apiCall() {
+      if (!accessToken || !userToken) {
+        return;
+      }
+
+      zlFetch('http://localhost:8011/log', {
+        method: 'POST',
+        headers: {
+          'access_token': accessToken,
+          'user_token': userToken,
+          'Content-Type': 'application/json; charset=utf-8'
+        },
+        body: {
+          pageSize: 2
+        }
+      })
+      .then(resp => {
+        console.log('zlFetch: ' + JSON.stringify(resp));
+        apiRet(resp.body, '/log')
+      })
+    }
     
     // fetch('https://api.github.com/users/chriscoyier/repos')
     fetch('http://localhost:8011/')
@@ -47,10 +73,6 @@
     })
     .catch(e => console.log(e));
 
-    // global
-    accessToken = undefined;
-    userToken = undefined;
-
     zlFetch('http://localhost:8011/auth/token', {
       method: 'POST',
       headers: {
@@ -63,36 +85,25 @@
       apiRet(resp.body, '/auth/token')
 
       accessToken = resp.body.accessToken;
-      zlFetch('http://localhost:8011/log', {
+      fetch('http://localhost:8011/user/login', {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'access_token': accessToken,
-          'Content-Type': 'application/json; charset=utf-8'
-        },
-        body: {
-          pageSize: 2
+          'name': 'test_api_service3',
+          'password': 'YzY5ODc0Yjg5OGFiYjE4MGFjNzFiZDk5YmMxNmY4ZmI='
         }
-      }).then(resp => {
-      console.log('zlFetch: ' + JSON.stringify(resp));
-      apiRet(resp.body, '/log')
       })
+      .then(response => { return response.json(); })
+      .then(data => {
+        console.log('fetch: ' + JSON.stringify(data));
+        apiRet(data, '/user/login')
+
+        userToken = data.userToken;
+        apiCall();
+      })
+      .catch(err => console.log(err));
     })
     .catch(e => console.log(e));
-
-    fetch('http://localhost:8011/auth/token', {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'key': 'TEST00383178435468066920',
-        'secret': 'NjU5MmU1YjcyYTY3YzFjMDQ1MzZiYzE5ODI5MTIyNzk='
-      }
-    })
-    .then(response => { return response.json(); })
-    .then(data => {
-      console.log('fetch: ' + JSON.stringify(data));
-      apiRet(data, 'auth/token')
-    })
-    .catch(err => console.log(err));
-
   </script>
 </html>
