@@ -8,7 +8,7 @@ describe('test setting', () => {
 
     // Set the new value
     const v = 'accessToken';
-    setValue(key, v)
+    setValue(key, v);
     expect(getValue(key)).toBe(v);
 
     // Restore the original value

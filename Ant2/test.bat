@@ -1,1 +1,1 @@
-npm test .test.js
+npm test src/test/

@@ -1,4 +1,5 @@
 // use localStorage to store the settings
+const API_URL = 'http://localhost:8011/';
 const APP_NAME = 'test_web_admin';
 const APP_KEY = 'TEST30383178435468066920';
 const APP_SECRET = 'a2ec6728-9a05-11e8-8af7-e0d55e8d80e2';
@@ -8,6 +9,10 @@ const USER_NAME = 'user_name';
 const USER_TOKEN = 'user_token';
 const IS_AUTO_LOGIN = 'is_auto_login';
 const LOGIN_TAB = 'login_tab';
+
+export function getApiUrl() {
+  return API_URL;
+}
 
 export function getAppName() {
   return APP_NAME;
