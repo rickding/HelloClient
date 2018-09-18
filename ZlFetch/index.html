@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
 
-    <title>Hello Fetch</title>
+    <title>Hello Zl-Fetch</title>
 
     <link rel="stylesheet" href="style.css">
     <!--[if lt IE 9]>
@@ -14,7 +14,7 @@
   </head>
 
   <body>
-    <h1>Hello Fetch</h1>
+    <h1>Hello Zl-Fetch</h1>
     <ul>
     </ul>
 
@@ -23,8 +23,8 @@
   <script>
     function apiRet(data, url) {
       var listItem = document.createElement('li');
-      listItem.innerHTML = JSON.stringify(data);
-      listItem.innerHTML +=', url: <strong>' + url + '</strong>';
+      listItem.innerHTML ='<strong>' + url + '</strong>: ';
+      listItem.innerHTML += JSON.stringify(data);
 
       var myList = document.querySelector('ul');
       myList.appendChild(listItem);
@@ -36,30 +36,44 @@
     .then(data => {
       console.log('fetch: ' + JSON.stringify(data));
       apiRet(data, '/')
-    });
+    })
+    .catch(err => console.log(err));
 
     // https://github.com/zellwk/zl-fetch
     zlFetch('http://localhost:8011/chk')
     .then(resp => {
       console.log('zlFetch: ' + JSON.stringify(resp));
-      apiRet(resp.body, 'chk')
+      apiRet(resp.body, '/chk')
     })
     .catch(e => console.log(e));
 
-    let content = {some: 'content'};
-    fetch('http://localhost:8011/chk', {
-      method: 'GET',
+    zlFetch('http://localhost:8011/auth/token', {
+      method: 'POST',
+      headers: {
+        'key': 'TEST00383178435468066920',
+        'secret': 'NjU5MmU1YjcyYTY3YzFjMDQ1MzZiYzE5ODI5MTIyNzk='
+      }
+    })
+    .then(resp => {
+      console.log('zlFetch: ' + JSON.stringify(resp));
+      apiRet(resp.body, '/auth/token')
+    })
+    .catch(e => console.log(e));
+
+    fetch('http://localhost:8011/auth/token', {
+      method: 'POST',
       credentials: 'include',
       headers: {
-        'Content-Type': 'application/json'
-      },
-      // body: JSON.stringify(content)
+        'key': 'TEST00383178435468066920',
+        'secret': 'NjU5MmU1YjcyYTY3YzFjMDQ1MzZiYzE5ODI5MTIyNzk='
+      }
     })
     .then(response => { return response.json(); })
     .then(data => {
       console.log('fetch: ' + JSON.stringify(data));
-      apiRet(data, 'chk')
-    });
+      apiRet(data, 'auth/token')
+    })
+    .catch(err => console.log(err));
 
   </script>
 </html>
