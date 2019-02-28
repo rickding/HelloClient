@@ -19,7 +19,8 @@
     </ul>
 
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/zl-fetch@2.1.5"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/zl-fetch@2.1.5"></script> -->
+  <script src="zl-fetch@2.1.5.js"></script>
   <script>
     function apiRet(data, url) {
       var listItem = document.createElement('li');
@@ -34,6 +35,7 @@
     accessToken = undefined;
     userToken = undefined;
 
+    // call api with token
     function apiCall() {
       if (!accessToken || !userToken) {
         return;
@@ -73,6 +75,7 @@
     })
     .catch(e => console.log(e));
 
+    // token and login
     zlFetch('http://localhost:8011/auth/token', {
       method: 'POST',
       headers: {
