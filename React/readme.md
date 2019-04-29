@@ -10,3 +10,6 @@ npm start
 
 npm install
 npm run build
+
+yarn add antd
+yarn start
