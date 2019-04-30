@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = {
-  entry: './src/index.js',
+  entry: './src/main.js',
   output: {
     filename: 'bundle-[hash].js',
     path: path.join(__dirname, 'dist')
@@ -17,9 +17,10 @@ const config = {
       {
         test: /\.(js|jsx)/,
         use:[
-          'babel-loader'
+          'babel-loader',
+          'eslint-loader'
         ]
-      }, {
+      },{
         test: /\.(sass|scss|css)/,
         use: [
         "style-loader",
@@ -32,7 +33,7 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title:'React with ES6',
+      title:'React简易开发环境',
       template: './src/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
