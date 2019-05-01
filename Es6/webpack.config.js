@@ -21,13 +21,18 @@ const config = {
           'babel-loader',
           'eslint-loader'
         ]
-      },{
+      }, {
         test: /\.(sass|scss|css)/,
         use: [
         "style-loader",
         "css-loader",
         "resolve-url-loader",
         "sass-loader?sourceMap"
+        ]
+      }, {
+        test: /\.(png|jpg|svg|gif)/,
+        use:[
+          "file-loader"
         ]
       }
     ]
