@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = {
+  mode: 'development',
   entry: './src/main.js',
   output: {
     filename: 'bundle-[hash].js',
