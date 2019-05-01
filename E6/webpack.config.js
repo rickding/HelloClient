@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const config = {
   mode: 'development',
-  entry: './src/main.js',
+  entry: ['babel-polyfill','./src/main.js'],
   output: {
     filename: 'bundle-[hash].js',
     path: path.join(__dirname, 'dist')
