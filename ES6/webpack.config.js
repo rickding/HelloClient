@@ -40,7 +40,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       title:'React简易开发环境',
-      template: './src/index.html'
+      template: './public/index.html'
     }),
     new webpack.HotModuleReplacementPlugin()
   ]
