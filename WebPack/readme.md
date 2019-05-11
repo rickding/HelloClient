@@ -7,15 +7,16 @@ npm init
 cnpm i -g webpack
 cnpm i webpack webpack-cli webpack-dev-server -D
 cnpm i babel-core babel-loader babel-preset-env babel-preset-react -D
+cnpm i babel-preset-es2015 babel-plugin-transform-decorators-legacy -D
 
-cnpm i react react-dom -S
-cnpm i style-loader css-loader -D
-cnpm i postcss-loader autoprefixer -D
-cnpm i html-webpack-plugin -D
-cnpm i babel-plugin-react-transform react-transform-hmr -D
+cnpm install --save-dev @babel/preset-react @babel/preset-flow @babel/preset-typescript @babel/core @babel/cli @babel/preset-env
+cnpm install --save @babel/polyfill
 
-cnpm i extract-text-webpack-plugin -D
-cnpm i clean-webpack-plugin -D
+cnpm i react react-dom react-redux redux moment -S
+cnpm i style-loader css-loader postcss-loader autoprefixer -D
+cnpm i html-webpack-plugin babel-plugin-react-transform react-transform-hmr -D
+
+cnpm i extract-text-webpack-plugin clean-webpack-plugin -D
 
 cnpm install
 npm start
