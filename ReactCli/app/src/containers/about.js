@@ -1,7 +1,5 @@
-// containers/about.js
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
- 
+
 class About extends Component {
     render() {
         return (
@@ -9,5 +7,5 @@ class About extends Component {
         );
     }
 }
- 
+
 export default About;
