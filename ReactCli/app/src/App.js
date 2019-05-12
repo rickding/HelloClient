@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import Link from "react-router-dom/es/Link";
-import About from "./containers/about";
-import Home from "./containers/home";
-import Inbox from "./containers/inbox";
-import Switch from "react-router-dom/es/Switch";
-import Route from "react-router-dom/es/Route";
+import Link from 'react-router-dom/es/Link';
+import Switch from 'react-router-dom/es/Switch';
+import Route from 'react-router-dom/es/Route';
+
+import About from './containers/about';
+import Home from './containers/home';
+import Inbox from './containers/inbox';
+
 import './App.css';
 
 class App extends Component {
